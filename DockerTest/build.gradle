@@ -8,8 +8,7 @@ buildscript {
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE')
 // tag::build[]
-       // classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
-       classpath('se.transmode.gradle:gradle-docker:1.2')
+        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
 // end::build[]
     }
 }
@@ -20,8 +19,7 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 // tag::plugin[]
-//apply plugin: 'com.palantir.docker'
-apply plugin: 'docker'
+apply plugin: 'com.palantir.docker'
 // end::plugin[]
 
 // This is used as the docker image prefix (org)
@@ -30,17 +28,6 @@ group = 'arnab'
 bootJar {
     baseName = 'docker-test'
     version =  '0.1.0'
-}
-
-task buildDocker(type: Docker, dependsOn: build) {
-   applicationName = jar.baseName
-   dockerfile = file('Dockerfile')
-   doFirst {
-      copy {
-         from jar
-         into stageDir
-      }
-   }
 }
 
 // tag::task[]
